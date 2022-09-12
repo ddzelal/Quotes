@@ -1,0 +1,12 @@
+.header-container {
+    /* width: 110vw;
+    height: 60px; */
+    background-color: grey;
+}
+
+.header-container h1 {
+    margin: 0px;
+    text-align: center;
+    font-weight: 100;
+    color: white;
+}

@@ -1,0 +1,51 @@
+.container-display-quotes {
+  display: flex;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #1e282b;
+}
+
+.container-display{
+  background-color:#1e282b;
+  height: 110vh;
+}
+.container-tags-by{
+  display: flex;
+  justify-content: center;
+  gap: 150px;
+  margin-left: 70px;
+}
+
+.tags-items div {
+  background-color: #1d344a;
+  border-radius: 10px;
+  width: 300px;
+  height: 30px;
+  text-align: center;
+  
+}
+
+.tags-items span {
+  color: white;
+}
+
+.tags-items ul {
+  color: white;
+}
+.container-display-quotes button {
+  width: 300px;
+  height: 30px;
+  margin: auto;
+  border-radius: 10px;
+  background-color: white;
+  color: #1d344a;
+  font-size: 15px;
+}
+
+.items-center{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
