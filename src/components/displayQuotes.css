@@ -49,3 +49,17 @@
   align-items: center;
   justify-content: center;
 }
+
+.form-container {
+ display: flex;
+ justify-content: center; 
+}
+
+.form-container form,label,input {
+  height: 30px;
+  
+}
+
+.form-container label {
+  color: white;
+}

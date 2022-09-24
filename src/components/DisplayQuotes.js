@@ -1,14 +1,24 @@
 import React, { useCallback, useEffect } from "react";
 import "./displayQuotes.css";
-import { useState } from "react";
+import { useState , useContext } from "react";
 import axios from "axios";
 import QuoteCard from "./QuoteCard";
 import FilterBy from "./FilterBy";
+import FormQuotes from "./FormQuotes";
+import { UserContext } from "../context/UserContext";
 
 export default function DisplayQuotes() {
+
+  const {token} = useContext(UserContext)
+
   const [quotes, setQuotes] = useState([]);
   const [tags, setTags] = useState([]);
   const [filters, setFilters] = useState({});
+  const [displayOnOf, setDisplayOnOf] = useState(false)
+
+  function showResults(){
+    setDisplayOnOf(!displayOnOf)
+  }
 
   const getQuotes = useCallback((params = {}) => {
     let paramsStr = "";
@@ -17,14 +27,14 @@ export default function DisplayQuotes() {
     });
 
     return axios
-      .get(`http://localhost:8000/quotes${paramsStr && "?" + paramsStr}`)
+      .get(`http://localhost:8000/quotes${paramsStr && "?" + paramsStr}`, { headers: { Authorization: "Bearer " + token }})
       .then(({ data }) => {
         return data.quotes;
       });
   }, []);
 
   const getTags = useCallback(() => {
-    return axios.get("http://localhost:8000/tags").then(({ data }) => {
+    return axios.get("http://localhost:8000/tags" , { headers: { Authorization: "Bearer " + token }}).then(({ data }) => {
       return data;
     });
   }, []);
@@ -64,6 +74,8 @@ export default function DisplayQuotes() {
     <div className="container-display">
 
     <div className="container-display-quotes">
+    <button onClick={showResults}>ADD QUOTES</button>
+    { displayOnOf ? <FormQuotes /> : null }
     <button
         onClick={async () => {
           const res = await getQuotes(filters);
