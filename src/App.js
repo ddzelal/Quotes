@@ -3,20 +3,25 @@ import DisplayQuotes from "./components/DisplayQuotes";
 import Header from "./components/Header";
 import LoginPage from "./components/LoginPage";
 import { UserContext } from "./context/UserContext";
-import { useContext } from "react";
-
-
+import { useContext, useEffect } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { getTokenFromStorage } from "./helpers";
 
 function App() {
+  const { setToken } = useContext(UserContext);
 
-  const {isLogged} = useContext(UserContext)
+  useEffect(() => {
+    setToken(getTokenFromStorage() || "");
+  }, []);
 
   return (
     <div className="App">
-        {!isLogged && <LoginPage />}
-        {isLogged && <Header />}
-        {isLogged && <DisplayQuotes />}
-      </div>
+      <Header />
+      <Switch>
+        <Route path="/" exact component={LoginPage} />
+        <Route path="/home" component={DisplayQuotes} />
+      </Switch>
+    </div>
   );
 }
 
@@ -29,4 +34,3 @@ export default App;
 // LoginPage.defaultProps={
 //   setLoggedin:true
 // }
-

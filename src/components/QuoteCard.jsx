@@ -6,14 +6,12 @@ import {
   calculatePercentageOfVotes,
 } from "../helpers";
 import "./QuoteCard.css";
-import axios from "axios";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import api from "../api";
 
 const QuoteCard = ({ quote, updateQuote }) => {
-
-
-  const {token} = useContext(UserContext)
+  const { token } = useContext(UserContext);
 
   const percentage = calculatePercentageOfVotes(
     quote.upvotesCount,
@@ -22,41 +20,36 @@ const QuoteCard = ({ quote, updateQuote }) => {
 
   const updateVote = async (voteValue) => {
     let response;
+
     try {
       if (quote.givenVote === "upvote" && voteValue === "downvote") {
-        await axios.delete(
-          `http://localhost:8000/quotes/${quote.id}/${quote.givenVote}`,{ headers: { Authorization: "Bearer " + token }}
-        );
+        await api.deleteVote(quote);
 
-        response = await axios.post(
-          `http://localhost:8000/quotes/${quote.id}/downvote`,{ headers: { Authorization: "Bearer " + token }}
-        );
+        response = await api.downVote(quote);
 
         updateQuote(response.data);
         return;
       } else if (quote.givenVote === "downvote" && voteValue === "upvote") {
-        await axios.delete(
-          `http://localhost:8000/quotes/${quote.id}/${quote.givenVote}`,{ headers: { Authorization: "Bearer " + token }}
-        );
-        response = await axios.post(
-          `http://localhost:8000/quotes/${quote.id}/upvote`,{ headers: { Authorization: "Bearer " + token }}
-        );
+        await api.deleteVote(quote);
+
+        response = await api.upVote(quote);
+
         updateQuote(response.data);
         return;
       }
       if (quote.givenVote === voteValue) {
-        response = await axios.delete(
-          `http://localhost:8000/quotes/${quote.id}/${voteValue}`,{ headers: { Authorization: "Bearer " + token }}
-        );
+        response = await api.deleteVote(quote);
 
         updateQuote(response.data);
         return;
       }
 
       if (quote.givenVote === "none") {
-        response = await axios.post(
-          `http://localhost:8000/quotes/${quote.id}/${voteValue}`,{ headers: { Authorization: "Bearer " + token }}
-        );
+        if (voteValue === "upvote") {
+          response = await api.upVote(quote);
+        } else {
+          response = await api.downVote(quote);
+        }
 
         updateQuote(response.data);
         return;

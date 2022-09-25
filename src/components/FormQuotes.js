@@ -1,19 +1,17 @@
 import axios from "axios";
-import React, { useContext , useState} from "react";
+import React, { useContext, useState } from "react";
+import api from "../api";
 import { UserContext } from "../context/UserContext";
 
-function FormQuotes() {
-
-  const {token} = useContext(UserContext)
-
-
-
+function FormQuotes({ setQuotes }) {
   const addQuotes = async () => {
-    await axios.post("http://localhost:8000/quotes", {
+    const res = await api.addQuote({
       content: quotesObj.content,
       author: quotesObj.author,
       tags: quotesObj.tags,
     });
+    const newQuote = res.data;
+    setQuotes((oldQuotes) => [...oldQuotes, newQuote]);
   };
 
   const [quotesObj, setQuotesObj] = useState({
