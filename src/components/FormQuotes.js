@@ -1,6 +1,6 @@
 import React, {  useState } from "react";
 import api from "../api";
-import "./FormaQuote"
+// import "./FormaQuote"
 
 function FormQuotes({ setQuotes }) {
   const addQuotes = async () => {
