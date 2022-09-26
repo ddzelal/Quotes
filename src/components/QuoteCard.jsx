@@ -6,9 +6,10 @@ import {
   calculatePercentageOfVotes,
 } from "../helpers";
 import "./QuoteCard.css";
-import axios from "axios";
+import api from "../api";
 
 const QuoteCard = ({ quote, updateQuote }) => {
+
   const percentage = calculatePercentageOfVotes(
     quote.upvotesCount,
     quote.downvotesCount
@@ -16,47 +17,42 @@ const QuoteCard = ({ quote, updateQuote }) => {
 
   const updateVote = async (voteValue) => {
     let response;
+
     try {
       if (quote.givenVote === "upvote" && voteValue === "downvote") {
-        await axios.delete(
-          `http://localhost:8000/quotes/${quote.id}/${quote.givenVote}`
-        );
+        await api.deleteVote(quote);
 
-        response = await axios.post(
-          `http://localhost:8000/quotes/${quote.id}/downvote`
-        );
+        response = await api.downVote(quote);
 
         updateQuote(response.data);
         return;
       } else if (quote.givenVote === "downvote" && voteValue === "upvote") {
-        await axios.delete(
-          `http://localhost:8000/quotes/${quote.id}/${quote.givenVote}`
-        );
-        response = await axios.post(
-          `http://localhost:8000/quotes/${quote.id}/upvote`
-        );
+        await api.deleteVote(quote);
+
+        response = await api.upVote(quote);
+
         updateQuote(response.data);
         return;
       }
       if (quote.givenVote === voteValue) {
-        response = await axios.delete(
-          `http://localhost:8000/quotes/${quote.id}/${voteValue}`
-        );
+        response = await api.deleteVote(quote);
 
         updateQuote(response.data);
         return;
       }
 
       if (quote.givenVote === "none") {
-        response = await axios.post(
-          `http://localhost:8000/quotes/${quote.id}/${voteValue}`
-        );
+        if (voteValue === "upvote") {
+          response = await api.upVote(quote);
+        } else {
+          response = await api.downVote(quote);
+        }
 
         updateQuote(response.data);
         return;
       }
     } catch (error) {
-      console.log("console.log(error);", error);
+      console.log( error);
     }
   };
 

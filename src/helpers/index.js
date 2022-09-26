@@ -1,5 +1,7 @@
-
 export const calculatePercentageOfVotes = (upVotes, downVotes) => {
+  if (upVotes === 0 && downVotes === 0) {
+    return 0;
+  }
   return (100 / (upVotes + downVotes)) * upVotes;
 };
 
@@ -9,3 +11,18 @@ export const calculateColorByPercentage = (percentage) => {
   return colorsArr[index];
 };
 
+export const getTokenFromStorage = () => {
+  console.log(
+    'localStorage.getItem("authToken")',
+    localStorage.getItem("authToken")
+  );
+  return localStorage.getItem("authToken");
+};
+
+export const setTokenToStorage = (token) => {
+  return localStorage.setItem("authToken", token);
+};
+
+export const deleteTokenFromStorage = () => {
+  return localStorage.removeItem("authToken");
+};
