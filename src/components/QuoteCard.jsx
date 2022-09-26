@@ -6,12 +6,9 @@ import {
   calculatePercentageOfVotes,
 } from "../helpers";
 import "./QuoteCard.css";
-import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
 import api from "../api";
 
 const QuoteCard = ({ quote, updateQuote }) => {
-  const { token } = useContext(UserContext);
 
   const percentage = calculatePercentageOfVotes(
     quote.upvotesCount,
@@ -55,7 +52,7 @@ const QuoteCard = ({ quote, updateQuote }) => {
         return;
       }
     } catch (error) {
-      console.log("console.log(error);", error);
+      console.log( error);
     }
   };
 

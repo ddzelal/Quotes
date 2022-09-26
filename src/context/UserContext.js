@@ -1,8 +1,6 @@
-import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 import api from "../api";
-import { setTokenToStorage } from "../helpers";
-import { getCookie, setCookie } from "../utils";
+import { deleteTokenFromStorage, setTokenToStorage } from "../helpers";
 
 export const UserContext = createContext();
 
@@ -13,11 +11,21 @@ const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState({ username: "", password: "" });
 
   const login = async () => {
-    const { data } = await api.login(user);
-    const accessToken = data.accessToken;
-    setToken(accessToken);
-    // setCookie("accessToken", data.accessToken, 180);
-    setIsLogged(true);
+    try {
+      const { data } = await api.login(user);
+      const accessToken = data.accessToken;
+      setTokenToStorage(accessToken);
+
+      setToken(accessToken);
+      setIsLogged(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const logOut = () => {
+    deleteTokenFromStorage();
+    setToken(null);
   };
 
   const getUser = (value, inputType) => {
@@ -36,6 +44,7 @@ const UserContextProvider = ({ children }) => {
         user,
         setUser,
         login,
+        logOut,
         getUser,
         isLogged,
         setIsLogged,

@@ -1,7 +1,6 @@
-import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, {  useState } from "react";
 import api from "../api";
-import { UserContext } from "../context/UserContext";
+import "./FormaQuote"
 
 function FormQuotes({ setQuotes }) {
   const addQuotes = async () => {
@@ -27,8 +26,7 @@ function FormQuotes({ setQuotes }) {
   };
 
   return (
-    <div className="form-container">
-      <form>
+    <div className="container-forma">
         <label>
           content:
           <input
@@ -65,7 +63,6 @@ function FormQuotes({ setQuotes }) {
           }}
           value="Submit"
         />
-      </form>
     </div>
   );
 }

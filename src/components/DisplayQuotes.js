@@ -1,18 +1,12 @@
 import React, { useCallback, useEffect } from "react";
 import "./displayQuotes.css";
-import { useState, useContext } from "react";
-import axios from "axios";
+import { useState } from "react";
 import QuoteCard from "./QuoteCard";
 import FilterBy from "./FilterBy";
 import FormQuotes from "./FormQuotes";
-import { UserContext } from "../context/UserContext";
-import { getCookie } from "../utils";
 import api from "../api";
 
 export default function DisplayQuotes() {
-  const { token } = useContext(UserContext);
-  console.log("token", token);
-
   const [quotes, setQuotes] = useState([]);
   const [tags, setTags] = useState([]);
   const [filters, setFilters] = useState({});
@@ -41,7 +35,7 @@ export default function DisplayQuotes() {
       try {
         const [quotesRes, tagsRes] = await Promise.all([
           api.getQuotes(),
-          api.getTags()
+          api.getTags(),
         ]);
 
         setQuotes(quotesRes);
