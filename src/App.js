@@ -1,12 +1,12 @@
 import "./App.css";
-import DisplayQuotes from "./components/DisplayQuotes";
-import Header from "./components/Header";
-import LoginPage from "./components/LoginPage";
+import DisplayQuotes from "./components/QuotePage/DisplayQuotes";
+import LoginPage from "./components/./LoginPage/LoginPage";
 import { UserContext } from "./context/UserContext";
 import { useContext, useEffect } from "react";
 import { Route, Switch } from "react-router-dom";
 import { getTokenFromStorage } from "./helpers";
 import { ProtectedRoute } from "./RouterAut/ProtectedRoute";
+import Header from "./components/HeaderComponent/Header";
 
 function App() {
   const { setToken } = useContext(UserContext);
@@ -17,7 +17,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+     <Header />
       <Switch>
         <Route path="/" exact component={LoginPage} />
         <ProtectedRoute path="/home" component={DisplayQuotes} />

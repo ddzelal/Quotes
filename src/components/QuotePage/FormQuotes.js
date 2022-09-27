@@ -1,5 +1,5 @@
 import React, {  useState } from "react";
-import api from "../api";
+import api from "../../api";
 // import "./FormaQuote"
 
 function FormQuotes({ setQuotes }) {
@@ -28,7 +28,7 @@ function FormQuotes({ setQuotes }) {
   return (
     <div className="container-forma">
         <label>
-          content:
+          <span>content:</span>
           <input
             onChange={(e) => {
               handleOnChange(e.target.value, "content");
@@ -38,7 +38,7 @@ function FormQuotes({ setQuotes }) {
           />
         </label>
         <label>
-          author:
+          <span>author:</span>
           <input
             onChange={(e) => {
               handleOnChange(e.target.value, "author");
@@ -48,7 +48,7 @@ function FormQuotes({ setQuotes }) {
           />
         </label>
         <label>
-          tags:
+          <span>tags:</span>
           <input
             onChange={(e) => {
               handleOnChange(e.target.value, "tags");
@@ -57,12 +57,12 @@ function FormQuotes({ setQuotes }) {
             name="tags"
           />
         </label>
-        <input
+        <button
           onClick={() => {
             addQuotes();
           }}
-          value="Submit"
-        />
+          
+        >submit</button>
     </div>
   );
 }

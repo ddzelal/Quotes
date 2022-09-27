@@ -1,6 +1,11 @@
 import axios from "axios";
 import { getTokenFromStorage } from "../helpers";
 
+
+const baseUrl = process.env.BASE_URL
+
+// console.log(baseUrl , "DWAdwa")
+
 const getQuotes = async (params = {}) => {
   let paramsStr = "";
   Object.keys(params).forEach((key) => {

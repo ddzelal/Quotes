@@ -1,12 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
-import {
-  calculateColorByPercentage,
-  calculatePercentageOfVotes,
-} from "../helpers";
 import "./QuoteCard.css";
-import api from "../api";
+import api from "../../api";
+import { calculateColorByPercentage , calculatePercentageOfVotes } from "../../helpers";
 
 const QuoteCard = ({ quote, updateQuote }) => {
 

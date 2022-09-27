@@ -53,3 +53,9 @@ display: flex;
    .image-container {
     width: 50%;
    }
+
+   .image-container img {
+    margin-top: 30px;
+    width: 90%;
+    border-radius: 10px;
+   }

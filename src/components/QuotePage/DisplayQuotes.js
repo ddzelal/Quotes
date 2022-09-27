@@ -1,10 +1,10 @@
 import React, { useCallback, useEffect } from "react";
 import "./displayQuotes.css";
 import { useState } from "react";
-import QuoteCard from "./QuoteCard";
-import FilterBy from "./FilterBy";
+import api from "../../api";
 import FormQuotes from "./FormQuotes";
-import api from "../api";
+import FilterBy from "./FilterBy";
+import QuoteCard from "./QuoteCard";
 
 export default function DisplayQuotes() {
   const [quotes, setQuotes] = useState([]);
@@ -49,8 +49,14 @@ export default function DisplayQuotes() {
   return (
     <div className="container-display">
       <div className="container-display-quotes">
-        <button onClick={showResults}>ADD QUOTES</button>
+      <div className="display-left">
+      <div className="add-quotes">
+      <button onClick={showResults}>ADD QUOTES</button>
         {displayOnOf ? <FormQuotes setQuotes={setQuotes} /> : null}
+      </div>
+      
+       
+        <div className="container-tags-by">
         <button
           onClick={async () => {
             const res = await api.getQuotes(filters);
@@ -59,7 +65,6 @@ export default function DisplayQuotes() {
         >
           SEARCH
         </button>
-        <div className="container-tags-by">
           <FilterBy
             tags={tags}
             submitHandler={submitHandler}
@@ -73,7 +78,9 @@ export default function DisplayQuotes() {
           />
         </div>
 
-        {quotes.length ? (
+      </div>
+          <div className="display-right">
+          {quotes.length ? (
           quotes.map((quote, i) => {
             return (
               <QuoteCard
@@ -88,6 +95,10 @@ export default function DisplayQuotes() {
           <h1>No quotes</h1>
         )}
       </div>
+
+          </div>
+
+       
     </div>
   );
 }

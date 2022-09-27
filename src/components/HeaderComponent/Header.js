@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
-import { UserContext } from '../context/UserContext'
-import { getTokenFromStorage } from '../helpers'
+import { UserContext } from '../../context/UserContext'
+import {getTokenFromStorage } from '../../helpers'
 import './header.css'
 
 export default function Header() {
