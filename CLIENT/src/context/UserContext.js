@@ -1,23 +1,70 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 import api from "../api";
 import { deleteTokenFromStorage, setTokenToStorage } from "../helpers";
 
 export const UserContext = createContext();
 
 const UserContextProvider = ({ children }) => {
-  const [isLogged, setIsLogged] = useState(false);
+  // const [isLogged, setIsLogged] = useState(false);
   const [token, setToken] = useState("");
 
-  const [user, setUser] = useState({ username: "", password: "" });
+  // const [user, setUser] = useState({ username: "", password: "" });
 
-  const login = async () => {
+  const initialState = {
+    isLogged: false,
+    token: "",
+    user: {
+      username: "",
+      password: "",
+    },
+  };
+
+  function userReducer(state, action) {
+    switch (action.type) {
+      case "LOGIN":
+        return {
+          ...state,
+          login: true,
+        };
+      case "LOGOUT":
+        return {
+          ...state,
+          login: false,
+        };
+      case "TOKEN":
+        return {
+          ...state,
+          token: action.token,
+        };
+
+      case "USER":
+        return {
+          ...state,
+          user: action.user,
+        };
+
+      default:
+        return state;
+    }
+  }
+
+  const [state, dispatch] = useReducer(userReducer, initialState);
+  const { user, isLogged } = state;
+
+  const login = async (user) => {
     try {
       const { data } = await api.login(user);
       const accessToken = data.accessToken;
       setTokenToStorage(accessToken);
 
       setToken(accessToken);
-      setIsLogged(true);
+      // dispatch({
+      //   type: "TOKEN",
+      //   token: accessToken,
+      // });
+      dispatch({
+        type: "LOGIN",
+      });
     } catch (error) {
       console.log(error);
     }
@@ -26,10 +73,10 @@ const UserContextProvider = ({ children }) => {
   const logOut = () => {
     deleteTokenFromStorage();
     setToken(null);
-  };
-
-  const getUser = (value, inputType) => {
-    setUser({ ...user, [inputType]: value });
+    // dispatch({
+    //   type: "TOKEN",
+    //   token: null,
+    // });
   };
 
   useEffect(() => {
@@ -42,14 +89,14 @@ const UserContextProvider = ({ children }) => {
     <UserContext.Provider
       value={{
         user,
-        setUser,
+        // setUser,
         login,
         logOut,
-        getUser,
+        // getUser,
         isLogged,
-        setIsLogged,
-        token,
+        dispatch,
         setToken,
+        token,
       }}
     >
       {children}

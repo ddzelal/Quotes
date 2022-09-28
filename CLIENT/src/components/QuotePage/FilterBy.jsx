@@ -40,7 +40,10 @@ function FilterBy({ tags, submitHandler, by, multiple = false }) {
       {isOpen && (
         <ul className="tag-container">
           {tags?.map((tag) => (
+
             <li key={tag}>
+
+            
               <input
                 type="checkbox"
                 name={tag}
@@ -49,6 +52,7 @@ function FilterBy({ tags, submitHandler, by, multiple = false }) {
               />
               <label htmlFor={tag}>{tag.toUpperCase()}</label>
             </li>
+
           ))}
         </ul>
       )}

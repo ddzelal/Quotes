@@ -49,15 +49,26 @@ export default function DisplayQuotes() {
   return (
     <div className="container-display">
       <div className="container-display-quotes">
+
       <div className="display-left">
-      <div className="add-quotes">
+      <div className="display-left-container">
+
       <button onClick={showResults}>ADD QUOTES</button>
+
+      <div className="add-quotes">
         {displayOnOf ? <FormQuotes setQuotes={setQuotes} /> : null}
       </div>
       
+      </div>
+
        
-        <div className="container-tags-by">
-        <button
+       
+
+      </div>
+          <div  className="display-right">
+          <div className="container-tags-by">
+          <div className="search-container">
+          <button
           onClick={async () => {
             const res = await api.getQuotes(filters);
             setQuotes(res);
@@ -65,6 +76,8 @@ export default function DisplayQuotes() {
         >
           SEARCH
         </button>
+          </div>
+          <div className="filter-container">
           <FilterBy
             tags={tags}
             submitHandler={submitHandler}
@@ -76,10 +89,15 @@ export default function DisplayQuotes() {
             submitHandler={submitHandler}
             by="sortBy"
           />
+
+          </div>
+       
+          
         </div>
 
-      </div>
-          <div className="display-right">
+          <div className="quote-card-container">
+
+          
           {quotes.length ? (
           quotes.map((quote, i) => {
             return (
@@ -89,11 +107,14 @@ export default function DisplayQuotes() {
                 getQuotes={api.getQuotes}
                 updateQuote={updateQuote}
               />
+            
             );
           })
+          
         ) : (
           <h1>No quotes</h1>
         )}
+        </div>
       </div>
 
           </div>

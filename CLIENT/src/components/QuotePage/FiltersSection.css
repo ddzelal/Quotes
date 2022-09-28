@@ -2,9 +2,16 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+
 }
 
 .tag-container li {
   list-style: none;
   height: 30px;
+}
+
+.tag-container {
+width: 300px;
+position: absolute;
+background-color: royalblue;
 }

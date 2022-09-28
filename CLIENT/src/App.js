@@ -9,11 +9,16 @@ import { ProtectedRoute } from "./RouterAut/ProtectedRoute";
 import Header from "./components/HeaderComponent/Header";
 
 function App() {
-  const { setToken } = useContext(UserContext);
+  const { dispatch , setToken, token } = useContext(UserContext);
 
   useEffect(() => {
     setToken(getTokenFromStorage() || "");
-  }, [setToken]);
+    // dispatch({
+    //   type:"TOKEN",
+    //   token:()=>getTokenFromStorage() || ""
+    // })
+    console.log(getTokenFromStorage())
+  },[setToken]);
 
   return (
     <div className="App">
