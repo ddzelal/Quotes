@@ -12,6 +12,7 @@ const QuoteCard = ({ quote, updateQuote }) => {
     quote.downvotesCount
   ).toFixed(0);
 
+
   const updateVote = async (voteValue) => {
     let response;
 

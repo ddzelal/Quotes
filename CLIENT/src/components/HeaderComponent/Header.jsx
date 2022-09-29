@@ -10,7 +10,7 @@ export default function Header() {
   return (
     <div className='header-container'>
     <div className='header-title'>
-        <h1>Welcome  application</h1>
+        <h1>Quote  application</h1>
     </div>
     <div className='header-button'>
 

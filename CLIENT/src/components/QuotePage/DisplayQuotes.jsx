@@ -17,7 +17,11 @@ export default function DisplayQuotes() {
 
   const submitHandler = useCallback(async (params) => {
     setFilters((oldValue) => ({ ...oldValue, ...params }));
+
   }, []);
+
+  // api.paginationQuotes(4,1)
+
 
   const updateQuote = (quote) => {
     setQuotes(

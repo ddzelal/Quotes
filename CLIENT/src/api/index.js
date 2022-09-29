@@ -10,16 +10,28 @@ const getQuotes = async (params = {}) => {
   Object.keys(params).forEach((key) => {
     paramsStr = paramsStr + key + "=" + params[key]?.join(",") + "&";
   });
-
   const res = await axios.get(
-    `http://localhost:8000/quotes${paramsStr && "?" + paramsStr}`,
+    `http://localhost:8000/quotes?${paramsStr && "?" + paramsStr}`,
     {
       headers: { Authorization: "Bearer " + getTokenFromStorage() },
     }
-  );
-
+    
+    
+    );
+    console.log(paramsStr)
+    console.log(res.data.quotes)
   return res.data.quotes;
 };
+
+
+// const paginationQuotes = async (page , pageNumber) => {
+//   const res = await axios.get( `http://localhost:8000/quotes?pageSize=${page}&page=${pageNumber}`,
+//   {
+//     headers: { Authorization: "Bearer " + getTokenFromStorage() },
+//   })
+//   console.log(res.data.quotes)
+//   return res.data.quotes
+// }
 
 const getTags = async () => {
   const res = await axios.get("http://localhost:8000/tags", {
@@ -39,6 +51,7 @@ const addQuote = async (data) => {
   return await axios.post("http://localhost:8000/quotes", data, {
     headers: { Authorization: "Bearer " + getTokenFromStorage() },
   });
+
 };
 const deleteVote = async (quote) => {
   return await axios.delete(
