@@ -3,15 +3,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretUp, faCaretDown } from "@fortawesome/free-solid-svg-icons";
 import "./QuoteCard.css";
 import api from "../../api";
-import { calculateColorByPercentage , calculatePercentageOfVotes } from "../../helpers";
+import {
+  calculateColorByPercentage,
+  calculatePercentageOfVotes,
+} from "../../helpers";
 
 const QuoteCard = ({ quote, updateQuote }) => {
-
   const percentage = calculatePercentageOfVotes(
     quote.upvotesCount,
     quote.downvotesCount
   ).toFixed(0);
-
 
   const updateVote = async (voteValue) => {
     let response;
@@ -50,7 +51,7 @@ const QuoteCard = ({ quote, updateQuote }) => {
         return;
       }
     } catch (error) {
-      console.log( error);
+      console.log(error);
     }
   };
 

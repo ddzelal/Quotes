@@ -1,76 +1,73 @@
 import axios from "axios";
-// import * as dotenv from "dotenv"; // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
 import { getTokenFromStorage } from "../helpers";
 
-// require('dotenv').config();
-
+const API_URL= process.env.REACT_APP_BASE_URL;
 
 const getQuotes = async (params = {}) => {
+
   let paramsStr = "";
   Object.keys(params).forEach((key) => {
     paramsStr = paramsStr + key + "=" + params[key]?.join(",") + "&";
   });
   const res = await axios.get(
-    `http://localhost:8000/quotes?${paramsStr && "?" + paramsStr}`,
+    `${API_URL}/quotes${paramsStr && "?" + paramsStr}`,
     {
       headers: { Authorization: "Bearer " + getTokenFromStorage() },
     }
     
-    
     );
-    console.log(paramsStr)
-    console.log(res.data.quotes)
+
   return res.data.quotes;
 };
 
-
-// const paginationQuotes = async (page , pageNumber) => {
-//   const res = await axios.get( `http://localhost:8000/quotes?pageSize=${page}&page=${pageNumber}`,
-//   {
-//     headers: { Authorization: "Bearer " + getTokenFromStorage() },
-//   })
-//   console.log(res.data.quotes)
-//   return res.data.quotes
-// }
+//not working, because my very low iq!
+const paginationQuotes = async (page , pageNumber) => {
+  const res = await axios.get( `${API_URL}/quotes?pageSize=${page}&page=${pageNumber}`,
+  {
+    headers: { Authorization: "Bearer " + getTokenFromStorage() },
+  })
+  console.log(res.data.quotes)
+  return res.data.quotes
+}
 
 const getTags = async () => {
-  const res = await axios.get("http://localhost:8000/tags", {
+  const res = await axios.get(`${API_URL}/tags`, {
     headers: { Authorization: "Bearer " + getTokenFromStorage() },
   });
-
   return res.data;
 };
 
 const login = async (user) => {
   
   // console.log(user);
-  return await axios.post("http://localhost:8000/sessions", user);
+  return await axios.post(`${API_URL}/sessions`, user);
 };
 
 const addQuote = async (data) => {
-  return await axios.post("http://localhost:8000/quotes", data, {
+  return await axios.post(`${API_URL}/quotes`, data, {
     headers: { Authorization: "Bearer " + getTokenFromStorage() },
   });
 
 };
 const deleteVote = async (quote) => {
   return await axios.delete(
-    `http://localhost:8000/quotes/${quote.id}/${quote.givenVote}`,
+    `${API_URL}/quotes/${quote.id}/${quote.givenVote}`,
     { headers: { Authorization: "Bearer " + getTokenFromStorage() } }
   );
 };
 
 const downVote = async (quote) => {
   return await axios.post(
-    `http://localhost:8000/quotes/${quote.id}/downvote`,
+    `${API_URL}/quotes/${quote.id}/downvote`,
     null,
     { headers: { Authorization: "Bearer " + getTokenFromStorage() } }
   );
+  
 };
 
 const upVote = async (quote) => {
   return await axios.post(
-    `http://localhost:8000/quotes/${quote.id}/upvote`,
+    `${API_URL}/quotes/${quote.id}/upvote`,
     null,
     { headers: { Authorization: "Bearer " + getTokenFromStorage() } }
   );

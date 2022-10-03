@@ -12,10 +12,7 @@ export const calculateColorByPercentage = (percentage) => {
 };
 
 export const getTokenFromStorage = () => {
-  console.log(
-    'localStorage.getItem("authToken")',
-    localStorage.getItem("authToken")
-  );
+  
   return localStorage.getItem("authToken");
 };
 
