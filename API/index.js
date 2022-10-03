@@ -5,6 +5,11 @@ const port = 8000;
 
 const USERS = [
   {
+    id: "d964099a-ADMIN-46f5-9782-e2601b5aac9e",
+    username: "admin",
+    password:"admin"
+  },
+  {
     id: "d964099a-1a2a-46f5-9782-e2601b5aac9e",
     username: "fazi",
     password: "1234",
@@ -28,6 +33,8 @@ const USERS = [
 
 // Mapping between token and user's id
 const TOKENS = {
+  "admin-token-232-213-21321":
+  "d964099a-ADMIN-46f5-9782-e2601b5aac9e",
   "ba13533b-e275-45a2-bc2e-b3098036d655":
     "d964099a-1a2a-46f5-9782-e2601b5aac9e",
   "csa31d3b-e275-45a2-bc2e-b3098036d655":
