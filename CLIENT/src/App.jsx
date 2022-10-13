@@ -18,7 +18,6 @@ function App() {
     //   token:()=>getTokenFromStorage() || ""
     // })
   }, [setToken]);
-  console.log(process.env)
 
   return (
     <div className="App">
