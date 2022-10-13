@@ -1,7 +1,12 @@
 import axios from "axios";
 import { getTokenFromStorage } from "../helpers";
+import {API_URL} from "../CONSTANT";
 
-const API_URL= process.env.REACT_APP_BASE_URL;
+
+
+// console.log(process.env.REACT_APP_BASE_URL)
+// const API_URL= process.env.REACT_APP_BASE_URL;
+console.log(API_URL)
 
 const getQuotes = async (params = {}) => {
 
@@ -38,6 +43,8 @@ const getTags = async () => {
 };
 
 const login = async (user) => {
+console.log(API_URL)
+
   
   // console.log(user);
   return await axios.post(`${API_URL}/sessions`, user);
